@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Seafood Paradise — Carte</title>
+<meta name="description" content="Carte officielle Seafood Paradise : combos fruits de mer, grillades, vins, cocktails, spiritueux et boissons.">
+<meta name="theme-color" content="#080f26">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --navy-deep:#040714;
+  --navy:#080f26;
+  --navy-2:#0d1730;
+  --navy-3:#13214a;
+  --navy-glass: rgba(19,33,74,0.42);
+  --teal:#2ec4b6;
+  --teal-dim: rgba(46,196,182,0.16);
+  --gold:#c9a227;
+  --gold-light:#f0d382;
+  --gold-dim:#8a7326;
+  --amber:#e8721c;
+  --ivory:#f3ead3;
+  --ivory-dim:#c9c3dd;
+  --muted:#6b74a0;
+  --line: rgba(201,162,39,0.24);
+  --line-soft: rgba(140,160,220,0.14);
+  --shadow: 0 25px 70px rgba(2,5,16,0.65);
+  --ease: cubic-bezier(.22,.9,.32,1);
+  --disp: 'Cinzel', serif;
+  --body: 'Cormorant Garamond', serif;
+  --ui: 'Jost', sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+}
+body{
+  margin:0;
+  background:
+    radial-gradient(900px 500px at 12% 0%, rgba(46,196,182,0.10), transparent 60%),
+    radial-gradient(1100px 650px at 88% 8%, rgba(201,162,39,0.12), transparent 62%),
+    radial-gradient(1000px 700px at 50% 100%, rgba(19,33,74,0.9), transparent 65%),
+    linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 40%, #060b1c 100%);
+  background-attachment:fixed;
+  color:var(--ivory);
+  font-family:var(--body);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.currents{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.4; overflow:hidden; mix-blend-mode:screen; }
+.currents span{
+  position:absolute; top:50%; left:50%; width:150vw; height:150vw; border-radius:50%; filter:blur(60px);
+  background:radial-gradient(circle, rgba(46,196,182,0.10), transparent 60%);
+  animation:drift 34s ease-in-out infinite;
+}
+.currents span:nth-child(2){
+  background:radial-gradient(circle, rgba(201,162,39,0.08), transparent 60%);
+  top:40%; animation-duration:44s; animation-delay:-6s;
+}
+@keyframes drift{
+  0%,100%{ transform:translate(-60%,-55%) scale(1); }
+  50%{ transform:translate(-45%,-45%) scale(1.15); }
+}
+img,svg{display:block; max-width:100%;}
+a{color:inherit; text-decoration:none;}
+button{font-family:inherit; cursor:pointer;}
+h1,h2,h3,h4{font-family:var(--disp); margin:0; letter-spacing:0.03em;}
+.container{width:100%; max-width:1180px; margin:0 auto; padding:0 20px;}
+
+/* ============ TEXTURE / GRAIN ============ */
+.grain{
+  position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.045; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============ GOLD DIVIDER (signature) ============ */
+.tide{
+  position:relative; z-index:2; height:46px; width:100%; overflow:hidden;
+}
+.tide svg{position:absolute; left:50%; top:0; transform:translateX(-50%); width:200%; height:100%; animation:tideMove 18s linear infinite;}
+.tide.rev svg{animation-direction:reverse;}
+@keyframes tideMove{ from{transform:translateX(-50%);} to{transform:translateX(-100%);} }
+
+.rule{
+  display:flex; align-items:center; gap:12px; justify-content:center; margin:10px auto 0;
+}
+.rule::before,.rule::after{content:''; height:1px; width:40px; background:linear-gradient(90deg, transparent, var(--gold), transparent);}
+.rule .dot{width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 12px var(--gold);}
+
+/* ============ NAV ============ */
+header.site{
+  position:fixed; top:0; left:0; right:0; z-index:60;
+  background:linear-gradient(to bottom, rgba(6,10,26,0.92), rgba(6,10,26,0.55));
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid transparent;
+  transition:border-color .4s var(--ease), background .4s var(--ease);
+}
+header.site.scrolled{ border-bottom-color:var(--line); background:rgba(6,10,26,0.97); box-shadow:0 10px 30px rgba(2,5,16,0.4); }
+.nav-row{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand .mark{ width:34px; height:34px; }
+.brand span{ font-family:var(--disp); font-size:15px; letter-spacing:0.14em; color:var(--gold-light); }
+.brand small{ display:block; font-family:var(--ui); font-size:8px; letter-spacing:0.35em; color:var(--muted); }
+
+nav.links{ display:none; gap:28px; align-items:center; }
+nav.links a{
+  font-family:var(--ui); font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--ivory-dim); position:relative; padding:6px 0; transition:color .3s;
+}
+nav.links a::after{
+  content:''; position:absolute; left:0; bottom:0; height:1px; width:0; background:var(--gold);
+  transition:width .35s var(--ease);
+}
+nav.links a:hover, nav.links a.active{ color:var(--gold-light); }
+nav.links a:hover::after, nav.links a.active::after{ width:100%; }
+
+.burger{ display:flex; flex-direction:column; gap:5px; width:26px; background:none; border:none; padding:6px; }
+.burger span{ height:1.5px; width:100%; background:var(--gold); transition:transform .35s var(--ease), opacity .3s; }
+.burger.open span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+.burger.open span:nth-child(2){ opacity:0; }
+.burger.open span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+
+.mobile-menu{
+  position:fixed; inset:0; z-index:55;
+  background:
+    radial-gradient(600px 400px at 50% 30%, rgba(201,162,39,0.08), transparent 70%),
+    rgba(4,7,16,0.98);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px;
+  opacity:0; visibility:hidden; transform:translateY(-8px);
+  transition:opacity .35s var(--ease), visibility .35s, transform .35s var(--ease);
+}
+.mobile-menu.open{ opacity:1; visibility:visible; transform:translateY(0); }
+.mobile-menu a{ font-family:var(--disp); font-size:22px; letter-spacing:0.08em; color:var(--ivory); transition:color .3s; }
+.mobile-menu a:hover{ color:var(--gold-light); }
+.mobile-menu a small{ display:block; text-align:center; font-family:var(--ui); font-size:10px; color:var(--muted); letter-spacing:0.3em; margin-top:4px;}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative; z-index:2; min-height:100svh; display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:120px 20px 100px; overflow:hidden;
+}
+.hero::before{
+  content:''; position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(60% 45% at 50% 12%, rgba(232,114,28,0.16), transparent 70%),
+    radial-gradient(50% 40% at 18% 60%, rgba(46,196,182,0.12), transparent 70%),
+    radial-gradient(55% 45% at 85% 55%, rgba(201,162,39,0.14), transparent 70%);
+  animation:glowShift 16s ease-in-out infinite;
+}
+@keyframes glowShift{
+  0%,100%{ filter:brightness(1); }
+  50%{ filter:brightness(1.18); }
+}
+.hero::after{
+  content:''; position:absolute; left:0; right:0; bottom:-2px; height:120px; z-index:1;
+  background:linear-gradient(to bottom, transparent, var(--navy) 92%);
+}
+.hero-content{ position:relative; z-index:3; max-width:760px; }
+.hero .mark-big{ width:64px; height:64px; margin:0 auto 22px; animation:floaty 6s ease-in-out infinite; filter:drop-shadow(0 0 14px rgba(201,162,39,0.45)); }
+@keyframes floaty{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+.eyebrow{ font-family:var(--ui); font-size:11px; letter-spacing:0.5em; color:var(--gold); text-transform:uppercase; margin-bottom:16px;}
+.hero h1{
+  font-size:clamp(2.6rem, 9vw, 5.2rem); line-height:0.98;
+  background:linear-gradient(180deg, var(--ivory) 12%, var(--gold-light) 55%, var(--amber) 115%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 6px 40px rgba(201,162,39,0.18));
+}
+.hero h1 em{ font-style:normal; display:block; font-size:0.34em; letter-spacing:0.55em; color:var(--gold); -webkit-text-fill-color:var(--gold); margin-top:14px; }
+.hero p.tagline{ font-family:var(--body); font-style:italic; font-size:clamp(1.05rem,2.4vw,1.3rem); color:var(--ivory-dim); margin:26px auto 0; max-width:520px; }
+.hero-ctas{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:40px; }
+.btn{
+  position:relative; overflow:hidden;
+  font-family:var(--ui); font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+  padding:15px 30px; border-radius:2px; border:1px solid var(--gold); transition:all .35s var(--ease);
+}
+.btn.primary{ background:linear-gradient(120deg, var(--gold), var(--amber)); color:var(--navy-deep); border-color:transparent; font-weight:600; box-shadow:0 8px 26px rgba(201,162,39,0.16);}
+.btn.primary:hover{ filter:brightness(1.14); transform:translateY(-2px); box-shadow:0 14px 34px rgba(201,162,39,0.35); }
+.btn.ghost{ color:var(--gold-light); background:rgba(13,23,48,0.4); backdrop-filter:blur(6px); }
+.btn.ghost:hover{ background:rgba(201,162,39,0.12); transform:translateY(-2px); border-color:var(--gold-light); }
+
+.bubbles{ position:absolute; inset:0; z-index:2; pointer-events:none; }
+.bubbles span{
+  position:absolute; bottom:-40px; border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, rgba(228,198,102,0.5), rgba(228,198,102,0.02));
+  animation:rise linear infinite;
+}
+.bubbles span:nth-child(3n){
+  background:radial-gradient(circle at 30% 30%, rgba(46,196,182,0.45), rgba(46,196,182,0.02));
+}
+@keyframes rise{ to{ transform:translateY(-115vh) translateX(var(--drift,0)); opacity:0; } }
+
+.scroll-cue{ position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:3; opacity:0.7; }
+.scroll-cue span{ display:block; width:1px; height:34px; margin:0 auto; background:linear-gradient(var(--gold), transparent); animation:cue 2.2s ease-in-out infinite; }
+@keyframes cue{ 0%{transform:scaleY(0.3); opacity:0;} 50%{transform:scaleY(1); opacity:1;} 100%{transform:scaleY(0.3); opacity:0; transform-origin:top;} }
+
+/* ============ SECTION SHELL ============ */
+section{ position:relative; z-index:2; padding:90px 0 30px; }
+.section-head{ text-align:center; margin-bottom:52px; }
+.section-head .eyebrow{ margin-bottom:10px; }
+.section-head h2{
+  font-size:clamp(2rem,5vw,2.9rem);
+  background:linear-gradient(180deg, var(--ivory) 30%, var(--gold-light) 120%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.section-head p{ font-family:var(--body); font-style:italic; color:var(--ivory-dim); font-size:1.1rem; margin-top:14px; max-width:560px; margin-left:auto; margin-right:auto;}
+
+.reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+/* ============ COMBOS ============ */
+.combo-grid{ display:grid; grid-template-columns:1fr; gap:22px; }
+@media(min-width:640px){ .combo-grid{ grid-template-columns:1fr 1fr; } }
+@media(min-width:1024px){ .combo-grid{ grid-template-columns:repeat(3,1fr); } }
+.combo-card{
+  position:relative; background:linear-gradient(165deg, var(--navy-2), var(--navy-3));
+  border:1px solid var(--line-soft); border-radius:3px; padding:30px 26px 26px; overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:transform .5s var(--ease), border-color .4s, box-shadow .5s var(--ease);
+}
+.combo-card:hover{ transform:translateY(-8px); border-color:var(--gold); box-shadow:0 30px 60px rgba(2,5,16,0.7), 0 0 0 1px rgba(201,162,39,0.15), 0 0 40px rgba(201,162,39,0.08); }
+.combo-card::before{
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, transparent, var(--gold), var(--amber), transparent);
+  transform:scaleX(0); transition:transform .5s var(--ease); transform-origin:left;
+}
+.combo-card:hover::before{ transform:scaleX(1); }
+.combo-card::after{
+  content:''; position:absolute; top:10px; right:10px; width:16px; height:16px;
+  border-top:1px solid var(--gold-dim); border-right:1px solid var(--gold-dim); opacity:0.5;
+}
+.combo-top{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:18px;}
+.combo-num{ font-family:var(--disp); font-size:12px; letter-spacing:0.2em; color:var(--gold); }
+.combo-pax{ font-family:var(--ui); font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line); padding:4px 10px; border-radius:20px;}
+.combo-card ul{ list-style:none; margin:0 0 22px; padding:0; }
+.combo-card li{ font-size:1.05rem; padding:5px 0; color:var(--ivory-dim); border-bottom:1px dashed rgba(201,162,39,0.14); }
+.combo-card li:last-child{ border-bottom:none; }
+.combo-price{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; padding-top:14px; border-top:1px solid var(--line); }
+.combo-price .p1{ font-family:var(--ui); font-weight:600; font-size:1.35rem; color:var(--gold-light);}
+.combo-price .p1 sup{ font-size:0.55em; color:var(--muted); font-weight:400; margin-left:3px;}
+.combo-price .p2{ font-family:var(--ui); font-size:0.78rem; color:var(--amber); text-align:right; }
+.combo-price .p2 b{ display:block; font-size:1rem; }
+
+/* ============ A LA CARTE (grill) ============ */
+.grill-wrap{
+  display:grid; grid-template-columns:1fr; gap:0; border:1px solid var(--line-soft); background:var(--navy-2);
+  box-shadow:var(--shadow); border-radius:3px; overflow:hidden;
+}
+@media(min-width:768px){ .grill-wrap{ grid-template-columns:1.1fr 0.9fr; } }
+.grill-list{ padding:34px 30px; }
+.grill-list .item{ display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid rgba(140,160,220,0.1); font-size:1.15rem; color:var(--ivory-dim); transition:color .3s, padding-left .3s; }
+.grill-list .item:hover{ color:var(--gold-light); padding-left:6px; }
+.grill-list .item:last-child{ border-bottom:none; }
+.grill-note{
+  background:linear-gradient(160deg, rgba(232,114,28,0.16), rgba(46,196,182,0.06));
+  padding:34px 30px; display:flex; flex-direction:column; justify-content:center; gap:14px;
+  border-top:1px solid var(--line-soft);
+}
+@media(min-width:768px){ .grill-note{ border-top:none; border-left:1px solid var(--line);} }
+.grill-note h3{ font-size:1.4rem; color:var(--gold-light); }
+.grill-note p{ font-size:1.05rem; color:var(--ivory-dim); line-height:1.6; }
+
+/* ============ EXTRAS TABS ============ */
+.tabbar{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:36px; }
+.tabbtn{
+  font-family:var(--ui); font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+  padding:10px 18px; border:1px solid var(--line-soft); background:var(--navy-glass); color:var(--ivory-dim);
+  backdrop-filter:blur(6px);
+  transition:all .3s var(--ease); border-radius:20px;
+}
+.tabbtn.active, .tabbtn:hover{ color:var(--navy-deep); background:linear-gradient(120deg, var(--gold), var(--amber)); border-color:transparent; box-shadow:0 8px 20px rgba(201,162,39,0.25); }
+.tabpanels{ position:relative; }
+.tabpanel{ display:none; animation:fadein .5s var(--ease); }
+.tabpanel.active{ display:block; }
+@keyframes fadein{ from{ opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+
+.price-grid{ display:grid; grid-template-columns:1fr; gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); box-shadow:var(--shadow); border-radius:3px; overflow:hidden;}
+@media(min-width:640px){ .price-grid.cols-2{ grid-template-columns:1fr 1fr; } }
+.price-grid.cols-2 > .price-row{ background:var(--navy-2); }
+.price-row{
+  display:flex; justify-content:space-between; align-items:center; gap:14px;
+  padding:14px 20px; background:var(--navy-2); transition:background .3s;
+}
+.price-row:hover{ background:var(--navy-3); }
+.price-row .name{ font-size:1.08rem; color:var(--ivory); }
+.price-row .name small{ display:block; font-family:var(--ui); font-size:0.72rem; color:var(--muted); margin-top:2px; letter-spacing:0.02em;}
+.price-row .val{ font-family:var(--ui); font-weight:600; color:var(--gold-light); white-space:nowrap; font-size:0.98rem;}
+
+.subhead{ font-family:var(--ui); font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--amber); margin:34px 0 14px; text-align:center;}
+.subhead:first-child{ margin-top:0; }
+
+/* cards for cocktails */
+.drink-grid{ display:grid; grid-template-columns:1fr; gap:16px; }
+@media(min-width:640px){ .drink-grid{ grid-template-columns:1fr 1fr; } }
+@media(min-width:1024px){ .drink-grid{ grid-template-columns:1fr 1fr 1fr; } }
+.drink-card{
+  border:1px solid var(--line-soft); border-radius:3px; padding:20px 22px; background:var(--navy-2);
+  box-shadow:var(--shadow);
+  transition:border-color .3s, transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.drink-card:hover{ border-color:var(--gold); transform:translateY(-5px); box-shadow:0 26px 50px rgba(2,5,16,0.65), 0 0 30px rgba(46,196,182,0.06); }
+.drink-top{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:8px;}
+.drink-top .dname{ font-family:var(--ui); font-weight:600; font-size:1.02rem; color:var(--ivory); letter-spacing:0.01em; }
+.drink-top .dprice{ font-family:var(--ui); color:var(--gold-light); font-weight:600; white-space:nowrap; font-size:0.95rem;}
+.drink-card .ding{ font-size:0.98rem; color:var(--ivory-dim); font-style:italic; line-height:1.5; }
+
+/* spiritueux table headers */
+.spirit-head{ display:flex; justify-content:flex-end; gap:0; padding:0 20px 8px; }
+.spirit-head span{ font-family:var(--ui); font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); width:76px; text-align:right;}
+.spirit-row .val{ display:flex; gap:0; }
+.spirit-row .val b{ width:76px; text-align:right; display:inline-block; font-weight:600;}
+
+/* Bottom note / age */
+.age-note{
+  text-align:center; font-family:var(--ui); font-size:11px; letter-spacing:0.08em; color:var(--muted);
+  border-top:1px solid var(--line); padding-top:16px; margin-top:10px;
+}
+
+/* ============ FOOTER ============ */
+footer{ padding:80px 0 40px; text-align:center; position:relative; z-index:2; }
+footer::before{
+  content:''; position:absolute; top:0; left:50%; width:1px; height:40px; transform:translateX(-50%);
+  background:linear-gradient(var(--gold), transparent);
+}
+footer .mark{ width:46px; height:46px; margin:0 auto 18px; filter:drop-shadow(0 0 12px rgba(201,162,39,0.35)); }
+footer h3{ font-size:1.6rem; color:var(--gold-light); letter-spacing:0.1em; }
+footer p{ font-family:var(--ui); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-top:10px;}
+footer .credit{ margin-top:40px; font-family:var(--ui); font-size:10px; letter-spacing:0.1em; color:#3d4468; }
+
+/* back to top */
+.totop{
+  position:fixed; right:18px; bottom:18px; z-index:50; width:46px; height:46px; border-radius:50%;
+  background:var(--navy-glass); backdrop-filter:blur(8px); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center;
+  opacity:0; visibility:hidden; transform:translateY(10px); transition:all .35s var(--ease);
+  box-shadow:0 10px 24px rgba(2,5,16,0.5);
+}
+.totop:hover{ background:linear-gradient(120deg, var(--gold), var(--amber)); }
+.totop:hover svg path{ stroke:var(--navy-deep); }
+.totop.show{ opacity:1; visibility:visible; transform:translateY(0); }
+.totop svg{ width:16px; height:16px; }
+.totop svg path{ transition:stroke .3s; }
+
+@media(min-width:900px){
+  nav.links{ display:flex; }
+  .burger{ display:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="currents"><span></span><span></span></div>
+
+<!-- ===== NAV ===== -->
+<header class="site" id="siteHeader">
+  <div class="container nav-row">
+    <a href="#top" class="brand">
+      <svg class="mark" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="52" r="22" stroke="#c9a227" stroke-width="2.4"/>
+        <path d="M30 40 C16 30, 8 34, 6 24 M70 40 C84 30, 92 34, 94 24" stroke="#c9a227" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M32 66 C20 76, 14 74, 8 82 M68 66 C80 76, 86 74, 92 82" stroke="#c9a227" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="42" cy="48" r="2.6" fill="#c9a227"/>
+        <circle cx="58" cy="48" r="2.6" fill="#c9a227"/>
+      </svg>
+      <span>SEAFOOD<br><small>PARADISE</small></span>
+    </a>
+    <nav class="links">
+      <a href="#combos">Combos</a>
+      <a href="#grill">Grill</a>
+      <a href="#extras">Accompagnements</a>
+      <a href="#vins">Vins</a>
+      <a href="#bar">Bar</a>
+      <a href="#spiritueux">Spiritueux</a>
+      <a href="#softs">Softs</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#combos">Combos<small>Fruits de mer</small></a>
+  <a href="#grill">Seafood &amp; Grill<small>À la carte</small></a>
+  <a href="#extras">Accompagnements<small>Entrées · Desserts</small></a>
+  <a href="#vins">Vins<small>De la maison</small></a>
+  <a href="#bar">Menu du bar<small>Cocktails</small></a>
+  <a href="#spiritueux">Spiritueux<small>Tournées · Bouteilles</small></a>
+  <a href="#softs">Soft drinks<small>Jus · Bières · Eaux</small></a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="bubbles" id="bubbles"></div>
+  <div class="hero-content">
+    <svg class="mark-big" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="52" r="22" stroke="#c9a227" stroke-width="2"/>
+      <path d="M30 40 C16 30, 8 34, 6 24 M70 40 C84 30, 92 34, 94 24" stroke="#c9a227" stroke-width="2" stroke-linecap="round"/>
+      <path d="M32 66 C20 76, 14 74, 8 82 M68 66 C80 76, 86 74, 92 82" stroke="#c9a227" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="42" cy="48" r="2.4" fill="#c9a227"/>
+      <circle cx="58" cy="48" r="2.4" fill="#c9a227"/>
+    </svg>
+    <div class="eyebrow">Carte Seafood Paradise</div>
+    <h1>Seafood<em>Paradise</em></h1>
+    <p class="tagline">Gambas, crabes, langoustes et grillades, servis dans la tradition du boil — entre mer et braise, une expérience à partager.</p>
+    <div class="hero-ctas">
+      <a href="#combos" class="btn primary">Voir les combos</a>
+      <a href="#bar" class="btn ghost">Menu du bar</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span></span></div>
+</section>
+
+<div class="tide"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 30 C100 10 200 50 300 30 C400 10 500 50 600 30 C700 10 800 50 900 30 C1000 10 1100 50 1200 30 L1200 60 L0 60 Z" fill="none" stroke="#c9a227" stroke-opacity="0.35" stroke-width="1"/></svg></div>
+
+<!-- ===== COMBOS ===== -->
+<section id="combos">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Formules signature</div>
+      <h2>Nos Combos</h2>
+      <div class="rule"><span class="dot"></span></div>
+      <p>Gambas, crevettes ou écrevisses, calamars, crabes, œufs, pommes de terre et maïs — le boil complet, pour 1 à 5 personnes.</p>
+    </div>
+    <div class="combo-grid" id="comboGrid"></div>
+  </div>
+</section>
+
+<!-- ===== GRILL ===== -->
+<section id="grill">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">À la carte</div>
+      <h2>Seafood &amp; Grill</h2>
+      <div class="rule"><span class="dot"></span></div>
+    </div>
+    <div class="grill-wrap reveal">
+      <div class="grill-list" id="grillList"></div>
+      <div class="grill-note">
+        <h3>Le mix mer &amp; braise</h3>
+        <p>Une sélection de fruits de mer et de brochettes grillées, composée à la carte selon vos envies. Demandez conseil à votre serveur pour un plateau sur mesure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACCOMPAGNEMENTS / ENTREES / DESSERTS / EXTRAS ===== -->
+<section id="extras">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Autour du plat</div>
+      <h2>Accompagnements &amp; Extras</h2>
+      <div class="rule"><span class="dot"></span></div>
+      <p>Alloco, attiéké, frites ou riz — 2 000 FCFA. Entrées, desserts, plats et suppléments à composer librement.</p>
+    </div>
+    <div class="tabbar" id="extrasTabs"></div>
+    <div class="tabpanels" id="extrasPanels"></div>
+  </div>
+</section>
+
+<div class="tide rev"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 30 C100 10 200 50 300 30 C400 10 500 50 600 30 C700 10 800 50 900 30 C1000 10 1100 50 1200 30 L1200 60 L0 60 Z" fill="none" stroke="#2ec4b6" stroke-opacity="0.32" stroke-width="1"/></svg></div>
+
+<!-- ===== VINS ===== -->
+<section id="vins">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Cave &amp; Cellier</div>
+      <h2>Vins de la Maison</h2>
+      <div class="rule"><span class="dot"></span></div>
+      <p>Les boissons sont servies uniquement aux adultes âgés de 18 ans et plus.</p>
+    </div>
+    <div class="tabbar" id="vinsTabs"></div>
+    <div class="tabpanels" id="vinsPanels"></div>
+  </div>
+</section>
+
+<!-- ===== BAR / COCKTAILS ===== -->
+<section id="bar">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Menu du bar</div>
+      <h2>Cocktails</h2>
+      <div class="rule"><span class="dot"></span></div>
+    </div>
+    <div class="tabbar" id="barTabs"></div>
+    <div class="tabpanels" id="barPanels"></div>
+  </div>
+</section>
+
+<div class="tide"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 30 C100 10 200 50 300 30 C400 10 500 50 600 30 C700 10 800 50 900 30 C1000 10 1100 50 1200 30 L1200 60 L0 60 Z" fill="none" stroke="#c9a227" stroke-opacity="0.35" stroke-width="1"/></svg></div>
+
+<!-- ===== SPIRITUEUX ===== -->
+<section id="spiritueux">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Tournées / Bouteilles</div>
+      <h2>Carte des Spiritueux</h2>
+      <div class="rule"><span class="dot"></span></div>
+    </div>
+    <div class="tabbar" id="spiritTabs"></div>
+    <div class="tabpanels" id="spiritPanels"></div>
+    <p class="age-note">Les boissons sont servies uniquement aux adultes âgés de 18 ans et plus.</p>
+  </div>
+</section>
+
+<!-- ===== SOFTS ===== -->
+<section id="softs">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Sans alcool</div>
+      <h2>Soft Drinks</h2>
+      <div class="rule"><span class="dot"></span></div>
+    </div>
+    <div class="tabbar" id="softsTabs"></div>
+    <div class="tabpanels" id="softsPanels"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <svg class="mark" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="52" r="22" stroke="#c9a227" stroke-width="2"/>
+      <path d="M30 40 C16 30, 8 34, 6 24 M70 40 C84 30, 92 34, 94 24" stroke="#c9a227" stroke-width="2" stroke-linecap="round"/>
+      <path d="M32 66 C20 76, 14 74, 8 82 M68 66 C80 76, 86 74, 92 82" stroke="#c9a227" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <h3>Seafood Paradise</h3>
+    <p>Fruits de mer &amp; grillades</p>
+    <div class="credit">Carte sujette à modification sans préavis</div>
+  </div>
+</footer>
+
+<button class="totop" id="totop" aria-label="Retour en haut">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+/* ============ DATA ============ */
+const combos = [
+  {n:"N°1", pax:"1 personne", items:["Gambas","Crevettes ou écrevisses","Calamars","Crabes","Pieuvres","Bulots","Œufs","Pommes de terre","Maïs (selon saison)"], price:"20 000", price2:"30 000"},
+  {n:"N°2", pax:"2 personnes", items:["Gambas","Crevettes ou écrevisses","Calamars","Crabes","Pieuvres","Bulots","Œufs","Pommes de terre","Maïs (selon saison)"], price:"30 000", price2:"45 000"},
+  {n:"N°3", pax:"3 personnes", items:["Gambas","Crevettes ou écrevisses","Calamars","Crabes","Pieuvres","Bulots","Œufs","Pommes de terre","Maïs (selon saison)"], price:"50 000", price2:"68 000"},
+  {n:"N°4", pax:"4 personnes", items:["Gambas","Crevettes ou écrevisses","Calamars","Crabes","Pieuvres","Bulots","Œufs","Pommes de terre","Maïs (selon saison)"], price:"60 000", price2:"80 000"},
+  {n:"N°5", pax:"5 personnes", items:["Gambas","Crevettes ou écrevisses","Calamars","Crabes","Pieuvres","Bulots","Œufs","Pommes de terre","Maïs"], price:"80 000", price2:"105 000"},
+];
+const grillItems = ["Gambas","Crevettes ou écrevisses","Calamars","Crabes","Pommes de terre","Œufs","Brochettes de poulet","Brochettes de viande"];
+
+const extras = {
+  "Formules": [["2 Personnes","40 000"],["3 Personnes","60 000"],["4 Personnes","80 000"]],
+  "Entrées": [["Salade","4 000"],["Calamars pannés","5 000"],["Crevettes pannées","5 000"]],
+  "Dessert": [["Salade de fruits","3 500"],["Glaces","2 000"]],
+  "Autres plats": [["Pâtes aux gambas","10 000"],["Linguini","10 000"],["Brochettes de poulet","5 000"],["Brochettes de viande","5 000"]],
+  "Suppléments": [["Gambas Tigrés","15 000"],["Gambas","15 000"],["Crabes","10 000"],["Calamars","5 000"],["Poulpe","5 000"],["Langouste","15 000"],["Moules","10 000"]],
+};
+
+const vins = {
+  "Vin Rouge": [["Roche Mazet","20 000"],["Cabernet Sauvignon","20 000"],["Baron d'Arignac","15 000"],["Chavalier Cavinal","20 000"],["Porto Ruby","20 000"],["Bordeaux","20 000"],["Saint Emilion Grand Cru","55 000"],["Trésor de Caraigne Begerac","25 000"],["Saint Joseph","30 000"],["Bordeaux Supérieur","30 000"]],
+  "Vin Blanc": [["Bellerives Dubois","20 000"],["Baron d'Arignac","15 000"],["La Chretienne","20 000"],["Pinot Gris","20 000"],["Chardonnet","20 000"]],
+  "Champagnes": [["Laurent Perrier","60 000"],["Moet & Chardon","60 000"],["Nicolas Feuillate","50 000"],["Vollereaux","50 000"]],
+  "Vin Mousseux": [["Minvielle","30 000"],["Martini Prosecco","30 000"],["Baron d'Arignac","25 000"],["JP Chenet Ice","20 000"]],
+};
+
+const cocktailsAlcool = [
+  {n:"Mojito",p:"7 500",d:"Virgin / Orange / Passion / Ananas / Bissap, Rhum"},
+  {n:"Long Island",p:"8 500",d:"Vodka, gin, Tequila, rhum, citron, coca"},
+  {n:"Blue Lagon",p:"6 500",d:"Vodka, curaçao bleu, passion, orange, citron"},
+  {n:"Pink Lemon",p:"6 500",d:"Citron, rhum, grenadine, citron"},
+  {n:"Cosmopolitano",p:"6 500",d:"Vodka, cointreau, cranberry, citron"},
+  {n:"Daiquiri",p:"5 500",d:"Rhum, citron vert, sucre de canne"},
+  {n:"Margarita",p:"6 500",d:"Tequila, cointreau, citron"},
+  {n:"Vodka Daysi",p:"6 500",d:"Vodka, citron, grenadine, s.oda"},
+  {n:"Gin Frizz",p:"6 500",d:"Gin, sucre de canne, citron, sprite"},
+  {n:"Sexy Bailey's",p:"6 500",d:"Bailey's, gin, citron"},
+  {n:"Mai Tai",p:"7 500",d:"Rhum blanc, rhum ambré, triple sec, sucre de canne, citron"},
+];
+const cocktailsVirgin = [
+  {n:"Mojito",p:"4 500",d:"Virgin / Orange / Passion / Ananas / Bissap"},
+  {n:"Hawaï",p:"4 500",d:"Multifruits (ananas, orange, pomme…), sirop citron / grenadine / menthe"},
+  {n:"Bora Bora",p:"4 500",d:"Jus ananas, jus passion, jus citron, grenadine, fruits de saison"},
+  {n:"Pina Colada",p:"4 500",d:"Jus ananas, lait de coco, sirop de canne"},
+  {n:"The Pêche",p:"4 500",d:"Pêche, citron vert, sprite, sucre"},
+  {n:"More to Come",p:"4 500",d:"Ananas, mangue, passion, fraise, lait"},
+  {n:"Golden Garden",p:"4 500",d:"Mangue, orange, grenadine"},
+  {n:"Milkshake",p:"4 500",d:"Oreo, kinder bueno, chocolat, fraise"},
+];
+const cocktailsSignature = [
+  {n:"Diamant Bleu",p:"7 500",d:"Rhum, curaçao bleu, passion, orange, citron"},
+  {n:"Soleil",p:"7 500",d:"Gin, menthe, citron vert, jus d'orange"},
+];
+
+const spiritueux = {
+  "Whisky": [["Jack Daniel's Single Barrel","6 000","40 000"],["Jack Daniel's","5 000","35 000"],["Jack Daniel's Gentleman","7 000","45 000"],["Johnny Walker — Red Label","4 000","25 000"],["Johnny Walker — Black Label","5 000","35 000"],["Double Black","6 000","40 000"],["Chivas","6 000","40 000"],["Ballantine's","4 000","30 000"],["Clan Campbell","4 000","25 000"]],
+  "Rhum": [["Diplomatico","10 000","65 000"],["Havana Club","5 000","35 000"],["Bacardi","5 000","35 000"],["Saint James","4 000","25 000"],["Rhum Café","4 000","25 000"]],
+  "Cognac": [["Hennessy VS","7 000","45 000"],["Remy Martin VSOP","7 000","45 000"],["Martell VS","7 000","45 000"],["Camus VSOP","7 000","45 000"]],
+  "Gin": [["Bombay Blue Sapphire","4 000","30 000"],["Citadelle","3 000","25 000"],["Gordon's","4 000","25 000"]],
+  "Vodka & Tequila": [["Grey Goose","6 000","40 000"],["Absolut","5 000","30 000"],["Ciroc","6 000","40 000"],["Smirnoff","4 000","20 000"],["Omelca","5 000","25 000"],["Patron Silver","5 000","35 000"]],
+  "Liqueurs & Crèmes": [["Jagermeister","5 000","35 000"],["Pastis","5 000","30 000"],["Baileys","5 000","30 000"],["Martini","4 000","25 000"],["Amarula","5 000","35 000"]],
+  "Shots": [["1 Shot","1 000",""],["5 Shots","3 000",""]],
+};
+
+const softs = {
+  "Sodas": [["Redbull","3 000"],["Sanbitter","2 000"],["Cody's energy","2 000"],["Coca cola / Sprite / Orangina / Ivorio / Fanta","1 500"],["Malta","2 000"]],
+  "Eaux": [["Eau Minérale","1 500"],["Perrier","2 500"],["San Pellegrino","2 000"],["Volvic","2 500"]],
+  "Bières": [["Heinneken","2 000"],["Beaufort","2 000"],["Desperados","2 000"],["Guinness","2 000"],["Doppel Munich","1 500"],["Budweiser","2 000"],["Corona","2 000"],["Cody's bière","2 000"]],
+  "Jus & Boissons chaudes": [["Jus naturel","2 000"],["Jus","1 500"],["Capucinno","2 000"],["Thé","1 000"],["Ex-presso","1 500"],["Café au lait","2 000"]],
+};
+
+/* ============ ICONS ============ */
+const icoCrab = `<svg width="18" height="18" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="52" r="22" stroke="currentColor" stroke-width="5"/><path d="M30 40 C16 30,8 34,6 24 M70 40 C84 30,92 34,94 24" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>`;
+
+/* ============ RENDER HELPERS ============ */
+function el(tag, cls, html){ const e=document.createElement(tag); if(cls) e.className=cls; if(html!==undefined) e.innerHTML=html; return e; }
+
+/* Combos */
+function renderCombos(){
+  const grid = document.getElementById('comboGrid');
+  combos.forEach((c,i)=>{
+    const card = el('div','combo-card reveal');
+    card.style.transitionDelay = (i*0.06)+'s';
+    card.innerHTML = `
+      <div class="combo-top">
+        <span class="combo-num">${icoCrab} Combo ${c.n}</span>
+        <span class="combo-pax">${c.pax}</span>
+      </div>
+      <ul>${c.items.map(it=>`<li>${it}</li>`).join('')}</ul>
+      <div class="combo-price">
+        <div class="p1">${c.price}<sup>FCFA</sup></div>
+        <div class="p2">avec langoustes et moules<b>${c.price2} FCFA</b></div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+/* Grill */
+function renderGrill(){
+  const wrap = document.getElementById('grillList');
+  grillItems.forEach(it=>{
+    wrap.appendChild(el('div','item', `<span>${it}</span>`));
+  });
+}
+
+/* Generic tabbed price-list section */
+function renderTabbedPrices(dataObj, tabsId, panelsId, cols2=false){
+  const tabsEl = document.getElementById(tabsId);
+  const panelsEl = document.getElementById(panelsId);
+  const keys = Object.keys(dataObj);
+  keys.forEach((k,i)=>{
+    const btn = el('button','tabbtn'+(i===0?' active':''), k);
+    btn.dataset.target = k;
+    btn.addEventListener('click', ()=>switchTab(tabsEl, panelsEl, k));
+    tabsEl.appendChild(btn);
+
+    const panel = el('div','tabpanel'+(i===0?' active':''));
+    panel.dataset.panel = k;
+    const gridClass = cols2 ? 'price-grid cols-2' : 'price-grid';
+    const grid = el('div', gridClass);
+    dataObj[k].forEach(row=>{
+      grid.appendChild(el('div','price-row', `<span class="name">${row[0]}</span><span class="val">${row[1]} FCFA</span>`));
+    });
+    panel.appendChild(grid);
+    panelsEl.appendChild(panel);
+  });
+}
+
+function switchTab(tabsEl, panelsEl, key){
+  tabsEl.querySelectorAll('.tabbtn').forEach(b=>b.classList.toggle('active', b.dataset.target===key));
+  panelsEl.querySelectorAll('.tabpanel').forEach(p=>p.classList.toggle('active', p.dataset.panel===key));
+}
+
+/* Cocktails (bar) */
+function renderBar(){
+  const tabsEl = document.getElementById('barTabs');
+  const panelsEl = document.getElementById('barPanels');
+  const groups = [
+    {key:"Alcoolisés", data:cocktailsAlcool},
+    {key:"Virgins", data:cocktailsVirgin},
+    {key:"Signature", data:cocktailsSignature},
+  ];
+  groups.forEach((g,i)=>{
+    const btn = el('button','tabbtn'+(i===0?' active':''), g.key);
+    btn.dataset.target = g.key;
+    btn.addEventListener('click', ()=>switchTab(tabsEl, panelsEl, g.key));
+    tabsEl.appendChild(btn);
+
+    const panel = el('div','tabpanel'+(i===0?' active':''));
+    panel.dataset.panel = g.key;
+    const grid = el('div','drink-grid');
+    g.data.forEach(dr=>{
+      grid.appendChild(el('div','drink-card', `
+        <div class="drink-top"><span class="dname">${dr.n}</span><span class="dprice">${dr.p} FCFA</span></div>
+        <div class="ding">${dr.d}</div>`));
+    });
+    panel.appendChild(grid);
+    panelsEl.appendChild(panel);
+  });
+}
+
+/* Spiritueux with tournée/bouteille columns */
+function renderSpiritueux(){
+  const tabsEl = document.getElementById('spiritTabs');
+  const panelsEl = document.getElementById('spiritPanels');
+  const keys = Object.keys(spiritueux);
+  keys.forEach((k,i)=>{
+    const btn = el('button','tabbtn'+(i===0?' active':''), k);
+    btn.dataset.target = k;
+    btn.addEventListener('click', ()=>switchTab(tabsEl, panelsEl, k));
+    tabsEl.appendChild(btn);
+
+    const panel = el('div','tabpanel'+(i===0?' active':''));
+    panel.dataset.panel = k;
+    const hasBottle = spiritueux[k][0][2] !== "";
+    if(hasBottle){
+      panel.appendChild(el('div','spirit-head', `<span>Tournée</span><span>Bouteille</span>`));
+    }
+    const grid = el('div','price-grid');
+    spiritueux[k].forEach(row=>{
+      const valHtml = hasBottle
+        ? `<span class="val"><b>${row[1]}</b><b>${row[2]}</b></span>`
+        : `<span class="val">${row[1]} FCFA</span>`;
+      grid.appendChild(el('div','price-row spirit-row', `<span class="name">${row[0]}</span>${valHtml}`));
+    });
+    panel.appendChild(grid);
+    panelsEl.appendChild(panel);
+  });
+}
+
+/* ============ INIT ============ */
+renderCombos();
+renderGrill();
+renderTabbedPrices(extras, 'extrasTabs', 'extrasPanels');
+renderTabbedPrices(vins, 'vinsTabs', 'vinsPanels', true);
+renderBar();
+renderSpiritueux();
+renderTabbedPrices(softs, 'softsTabs', 'softsPanels', true);
+
+/* ============ NAV BEHAVIOR ============ */
+const header = document.getElementById('siteHeader');
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', ()=>{
+  burger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
+  burger.classList.remove('open'); mobileMenu.classList.remove('open');
+}));
+
+const totop = document.getElementById('totop');
+window.addEventListener('scroll', ()=>{
+  header.classList.toggle('scrolled', window.scrollY>30);
+  totop.classList.toggle('show', window.scrollY>500);
+}, {passive:true});
+totop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+/* active link on scroll */
+const navLinks = document.querySelectorAll('nav.links a');
+const sections = document.querySelectorAll('section[id]');
+const navObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')==='#'+entry.target.id));
+    }
+  });
+}, {rootMargin:'-45% 0px -50% 0px'});
+sections.forEach(s=>navObserver.observe(s));
+
+/* reveal on scroll */
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){ entry.target.classList.add('in'); revealObserver.unobserve(entry.target); }
+  });
+}, {threshold:0.12});
+document.querySelectorAll('.reveal').forEach(elm=>revealObserver.observe(elm));
+
+/* bubbles in hero */
+const bubbleWrap = document.getElementById('bubbles');
+const bubbleCount = window.innerWidth < 640 ? 10 : 18;
+for(let i=0;i<bubbleCount;i++){
+  const b = document.createElement('span');
+  const size = 4 + Math.random()*10;
+  b.style.width = size+'px';
+  b.style.height = size+'px';
+  b.style.left = Math.random()*100+'%';
+  b.style.setProperty('--drift', (Math.random()*80-40)+'px');
+  b.style.animationDuration = (7+Math.random()*10)+'s';
+  b.style.animationDelay = (Math.random()*10)+'s';
+  bubbleWrap.appendChild(b);
+}
+</script>
+</body>
+</html>
